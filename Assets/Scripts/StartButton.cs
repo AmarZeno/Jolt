@@ -8,4 +8,8 @@ public class StartButton : MonoBehaviour {
     {
         SceneManager.LoadScene(nextSceneName);
     }
+
+    public void Exit() {
+        Application.Quit();
+    }
 }
