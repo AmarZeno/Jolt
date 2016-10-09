@@ -4,21 +4,15 @@ using UnityEngine.UI;
 
 public class Found : MonoBehaviour {
     public Text text;
-    public float FadeInTime;
-    public float FadeOutTime;
-
-    public float TotalNum;
-
-    int foundNum;
+    public Game game;
 
     void Start()
     {
-        foundNum = 0;
+        text.text = "FOUND " + game.NumIdentified + "/" + game.NumTotal;
     }
 
     public void Show()
     {
-        foundNum++;
-        text.text = "FOUND " + foundNum + "/" + TotalNum;
+        text.text = "FOUND " + game.NumIdentified + "/" + game.NumTotal;
     }
 }
