@@ -63,14 +63,14 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 
 	void LateUpdate()
 	{
-       // leapDirection = playerControl.LeapDirection;
+        leapDirection = playerControl.LeapDirection2;
 
 
         angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.deltaTime;
-        angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+      //  angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
 
 
-        //angleV += Mathf.Clamp(Input.GetAxis("Mouse Y") + (leapDirection.y/10), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+        angleV += Mathf.Clamp(Input.GetAxis("Mouse Y") + (leapDirection.y/10), -1, 1) * verticalAimingSpeed * Time.deltaTime;
 
         // fly
         if (playerControl.IsFlying())
@@ -85,7 +85,7 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 
 		Quaternion aimRotation = Quaternion.Euler(-angleV, angleH, 0);
 		Quaternion camYRotation = Quaternion.Euler(0, angleH, 0);
-        Debug.Log(aimRotation);
+        //Debug.Log(aimRotation);
         cam.rotation = aimRotation;
 
       //  cam.rotation = new Quaternion(aimRotation.x, 0.7f, aimRotation.z, aimRotation.w);
