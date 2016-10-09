@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Leap;
+//using Leap;
 using System.Collections.Generic;
 
 public class PlayerControl : MonoBehaviour
@@ -50,21 +50,21 @@ public class PlayerControl : MonoBehaviour
 	private float distToGround;
 	private float sprintFactor;
 
-    Controller leapController;
-    Quaternion leapRotation;
-    Vector leapDirection;
+    //Controller leapController;
+    //Quaternion leapRotation;
+    //Vector leapDirection;
 
-    public Vector LeapDirection
-    {
-        get
-        {
-            return leapDirection;
-        }
-    }
+    //public Vector LeapDirection
+    //{
+    //    get
+    //    {
+    //        return leapDirection;
+    //    }
+    //}
 
     void Awake()
 	{
-        leapController = new Controller();
+       // leapController = new Controller();
         anim = GetComponent<Animator> ();
 		cameraTransform = Camera.main.transform;
 
@@ -99,7 +99,7 @@ public class PlayerControl : MonoBehaviour
         forwardFly = Input.GetButton("ForwardFly");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
 
-
+        /* 
         // Leap Motion
         Hand mainHand; // The front most hand captured by the Leap Motion Controller
 
@@ -110,16 +110,16 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
-        mainHand = Hands[0];
+       mainHand = Hands[0];
 
         leapDirection = mainHand.Direction;
       //  Debug.Log(mainHand.Direction);
 
         leapRotation = Quaternion.Euler(mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll);
-
-       // Debug.Log(leapRotation);
+        */
+        // Debug.Log(leapRotation);
         // For relative orientation
-      //  leapRotation *= Quaternion.Euler( mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll );
+        //  leapRotation *= Quaternion.Euler( mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll );
     }
 
     void FixedUpdate()
@@ -133,13 +133,13 @@ public class PlayerControl : MonoBehaviour
 		anim.SetBool (flyBool, fly);
 		GetComponent<Rigidbody>().useGravity = !fly;
 		anim.SetBool (groundedBool, IsGrounded ());
-
+        /*
         if (IsReady && Hands != null)
         {
            // Debug.Log(leapRotation);
            // h = 1;
             h = Mathf.Clamp(leapDirection.x, -1, 1);
-        }
+        }*/
 
 
 
@@ -279,7 +279,7 @@ public class PlayerControl : MonoBehaviour
 		return sprint && !aim && (isMoving);
 	}
 
-
+    /*
     // Leap Motion
     /// <summary>
     /// The current frame captured by the Leap Motion.
@@ -310,5 +310,5 @@ public class PlayerControl : MonoBehaviour
     {
         get { return (leapController != null && leapController.Devices.Count > 0 && leapController.IsConnected); }
     }
-
+    */
 }

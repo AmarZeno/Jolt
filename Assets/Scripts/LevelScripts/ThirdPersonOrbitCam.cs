@@ -63,14 +63,17 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 
 	void LateUpdate()
 	{
-        leapDirection = playerControl.LeapDirection;
+       // leapDirection = playerControl.LeapDirection;
 
 
         angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.deltaTime;
-		angleV += Mathf.Clamp(Input.GetAxis("Mouse Y") + (leapDirection.y/10), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+        angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
 
-		// fly
-		if(playerControl.IsFlying())
+
+        //angleV += Mathf.Clamp(Input.GetAxis("Mouse Y") + (leapDirection.y/10), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+
+        // fly
+        if (playerControl.IsFlying())
 		{
 			angleV = Mathf.Clamp(angleV, minVerticalAngle, flyMaxVerticalAngle);
 		}
