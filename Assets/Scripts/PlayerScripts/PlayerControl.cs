@@ -54,6 +54,14 @@ public class PlayerControl : MonoBehaviour
     Quaternion leapRotation;
     Vector leapDirection;
 
+    public Vector LeapDirection
+    {
+        get
+        {
+            return leapDirection;
+        }
+    }
+
     void Awake()
 	{
         leapController = new Controller();
@@ -105,11 +113,11 @@ public class PlayerControl : MonoBehaviour
         mainHand = Hands[0];
 
         leapDirection = mainHand.Direction;
-        Debug.Log(mainHand.Direction);
+      //  Debug.Log(mainHand.Direction);
 
         leapRotation = Quaternion.Euler(mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll);
 
-        Debug.Log(leapRotation);
+       // Debug.Log(leapRotation);
         // For relative orientation
       //  leapRotation *= Quaternion.Euler( mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll );
     }

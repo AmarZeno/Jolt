@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Leap;
 
 public class ThirdPersonOrbitCam : MonoBehaviour 
 {
@@ -40,8 +41,11 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 	private float defaultFOV;
 	private float targetFOV;
 
+    Vector leapDirection;
+
 	void Awake()
 	{
+
 
         cam = transform;
 		playerControl = player.GetComponent<PlayerControl> ();
@@ -59,8 +63,11 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 
 	void LateUpdate()
 	{
-		angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.deltaTime;
-		angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+        leapDirection = playerControl.LeapDirection;
+
+
+        angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.deltaTime;
+		angleV += Mathf.Clamp(Input.GetAxis("Mouse Y") + (leapDirection.y/10), -1, 1) * verticalAimingSpeed * Time.deltaTime;
 
 		// fly
 		if(playerControl.IsFlying())
