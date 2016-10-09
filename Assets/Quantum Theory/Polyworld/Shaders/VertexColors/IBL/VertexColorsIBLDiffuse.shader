@@ -2,7 +2,7 @@
 // Code Animo™ http://codeanimo.com
 // License terms can be found at the bottom of this file.
 
-Shader "QuantumTheory/VertexColors/IBL/Diffuse" {
+Shader "QuantumTheory/VertexColors/Deprecated/IBL/Diffuse" {
 	Properties {
 		_DiffuseIBL("Diffuse IBL", CUBE) = "" {}
 		_IBLBrightness("IBL Brightness", Float) = 1

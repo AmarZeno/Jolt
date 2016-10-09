@@ -1,5 +1,7 @@
 fileFormatVersion: 2
-guid: 92610b31f7bab864eaa83877cc006a07
+guid: d39ba0280a2998b40abeeea3c5aa2c97
+timeCreated: 1426305051
+licenseType: Store
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
@@ -12,17 +14,13 @@ ModelImporter:
     4300000: BackgroundTerrainA-BaseMesh
   materials:
     importMaterials: 1
-    materialName: 1
+    materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -38,7 +36,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -47,7 +45,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 0
     splitTangentsAcrossUV: 1

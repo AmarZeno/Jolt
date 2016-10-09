@@ -34,7 +34,10 @@ public class QT_SurfaceNoiseEditor : Editor {
                 EditorGUILayout.HelpBox("Varied Meshes or PolyWorld Terrain Detected.\n\nMultiMesh flag should be enabled to prevent errors. This will be more costly to calculate. See Help for important information.", MessageType.Warning);
             else if (isMM == false && SN.enableMultiMesh == true)
                 EditorGUILayout.HelpBox("No Varied Meshes or PolyWorld Terrain detected.\n\nMutiMesh flag could be disabled for performance increase.", MessageType.Info);
-          
+
+            SN.TargetCamera = (Camera)EditorGUILayout.ObjectField("Target Camera:", SN.TargetCamera, typeof(Camera), true);
+            if (!SN.TargetCamera)
+                EditorGUILayout.HelpBox("No Camera Specified! SurfaceNoise can't run.", MessageType.Error);
             SN.useOverride = EditorGUILayout.Toggle("Preset Override", SN.useOverride);
             if (SN.useOverride == false)
             {
@@ -65,8 +68,8 @@ public class QT_SurfaceNoiseEditor : Editor {
             SN.enableLOD = EditorGUILayout.Toggle("Enable LOD", SN.enableLOD);
             if (SN.enableLOD)
 			{
-				if(!Camera.main)
-					EditorGUILayout.HelpBox("No Main Camera Found! LOD can't run.",MessageType.Error);
+				if(!SN.TargetCamera)
+					EditorGUILayout.HelpBox("No Camera Specified! LOD can't run.",MessageType.Error);
                 SN.LODDistance = EditorGUILayout.IntSlider("Distance:", SN.LODDistance,5,100);
 				SN.showDebugSphere = EditorGUILayout.Toggle("Visualize Distance:",SN.showDebugSphere);
 				if(SN.showDebugSphere)

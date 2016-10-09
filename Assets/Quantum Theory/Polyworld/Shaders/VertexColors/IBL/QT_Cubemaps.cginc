@@ -25,7 +25,7 @@
 	
 	float3 ImageBasedLighting(float3 worldNormal,float3 albedo){
 		float3 cubeSample = SAMPLE_CUBE_LEVEL(_DiffuseIBL, worldNormal, 0).rgb;
-		return cubeSample * _IBLBrightness * albedo;
+		return cubeSample * 1 * albedo;//_IBLBrightness * albedo;
 	}
 	
 	#ifdef QT_REFLECTION

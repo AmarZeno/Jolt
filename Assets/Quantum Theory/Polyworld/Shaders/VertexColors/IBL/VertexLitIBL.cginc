@@ -1,5 +1,3 @@
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
 // Upgrade NOTE: commented out 'float4 unity_LightmapST', a built-in variable
 // Upgrade NOTE: commented out 'sampler2D unity_Lightmap', a built-in variable
 // Upgrade NOTE: replaced tex2D unity_Lightmap with UNITY_SAMPLE_TEX2D
@@ -25,6 +23,7 @@
 		float4 color : COLOR;
 		fixed3 albedo : TEXCOORD0;
 		float3 worldNormal : TEXCOORD1;
+		UNITY_FOG_COORDS(3)
 		#ifndef LIGHTMAP_OFF
 		float2 lmap : TEXCOORD2;
 		#endif
@@ -38,20 +37,22 @@
 	#endif
 	
 	void vert(vertexInput v, out vertex2Fragment o){
+	UNITY_INITIALIZE_OUTPUT(vertex2Fragment,o);
 		o.position = mul (UNITY_MATRIX_MVP, v.vertex);
-		
+		UNITY_TRANSFER_FOG(o,o.position);
+
 		#ifdef QT_REFLECTION
 		float3 viewDir = -ObjSpaceViewDir(v.vertex);
 	  	o.viewRefl = reflect (viewDir, v.normal);
 	  	#endif
 	  	
-		float3 worldNormal = mul ((float3x3)unity_ObjectToWorld, SCALED_NORMAL);
-		o.worldNormal = worldNormal;
+		//float3 worldNormal = mul ((float3x3)_Object2World, SCALED_NORMAL);
+		//o.worldNormal = worldNormal;
 		
-		o.color.a = 1;
 		
+
 		o.albedo = v.color.rgb;// Need albedo value in fragment shader for IBL and lightmap	
-		float3 diffuseLight = ShadeVertexLights(v.vertex, v.normal) * 2;// Twice as bright to match regular fragment shader brightness
+		float3 diffuseLight = ShadeVertexLights(v.vertex, v.normal);// * 2;// Twice as bright to match regular fragment shader brightness
 		
 		#ifdef LIGHTMAP_OFF
 		diffuseLight += ShadeSH9(half4(worldNormal, 1.0) );// Light Probes
@@ -64,8 +65,9 @@
 		o.color.rgb = o.albedo * diffuseLight;
 		
 		#ifdef QT_EMISSION_ENABLED
-		o.color.rgb += o.albedo * _Emission * (1 - v.color.a);
+		o.color.rgb += _Color * _EMISSION * (v.color.a);
 		#endif
+		
 	}
 	
 	#ifndef LIGHTMAP_OFF
@@ -74,7 +76,7 @@
 	
 	float4 frag(vertex2Fragment IN) : COLOR {
 		fixed4 outColor = IN.color;
-		outColor.rgb += ImageBasedLighting(IN.worldNormal, IN.albedo.rgb);
+		
 		
 		#ifdef QT_REFLECTION
 		outColor.rgb += calculateReflection(IN.viewRefl) * _ReflectionAmount;
@@ -86,7 +88,7 @@
 		outColor.rgb += lightmapLight * IN.albedo;	
 		#endif
 		
-		
+		UNITY_APPLY_FOG(IN.fogCoord, outColor);
 		return outColor;
 	}
 

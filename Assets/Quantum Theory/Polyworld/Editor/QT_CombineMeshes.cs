@@ -25,20 +25,25 @@ public class QT_CombineMeshes : EditorWindow
 
     [MenuItem("Window/Quantum Theory/Combine Meshes")]
     static void Init()
-    {
+    {        
         QT_CombineMeshes window = (QT_CombineMeshes)EditorWindow.GetWindow(typeof(QT_CombineMeshes));
         window.Show();
-        window.title = "Combiner";
-        window.maxSize = new Vector2(460, 205);
-        window.minSize = window.maxSize;
-
     }
+
+    void OnEnable()
+    {
+        this.titleContent = new GUIContent("Combiner");
+        this.maxSize = new Vector2(460, 205);
+        this.minSize = this.maxSize;
+    }
+
     //private static string targetFolder = "Assets/CombinedMesh_Prefabs/";
     public bool destroyAfterOptimized = false;
     private bool AutoName = true;
     private bool keepLayer = true;
     private bool isLightmapped = true;
-    private bool castShadows = true, receiveShadows = true, addMeshCollider = true, isStatic = true, createParentGO = true;
+    private bool addMeshCollider = true, isStatic = true, createParentGO = true;
+	//private bool castShadows = true, receiveShadows = true;
     private string newName = "";
    // private int layer = 0;
     private List<GameObject> newObjects = new List<GameObject>(); //holds new objects.
@@ -67,8 +72,8 @@ public class QT_CombineMeshes : EditorWindow
             isLightmapped = EditorGUILayout.Toggle("Generate Lightmap UVs:", isLightmapped);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
-            castShadows = EditorGUILayout.Toggle("Cast Shadows:", castShadows);
-            receiveShadows = EditorGUILayout.Toggle("Receive Shadows:", receiveShadows);
+            //castShadows = EditorGUILayout.Toggle("Cast Shadows:", castShadows);
+           // receiveShadows = EditorGUILayout.Toggle("Receive Shadows:", receiveShadows);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
            // keepLayer = EditorGUILayout.Toggle("Keep Layer Choice:", keepLayer);
@@ -276,7 +281,7 @@ public class QT_CombineMeshes : EditorWindow
         {
             MeshFilter filter = (MeshFilter)filters[i];
             Renderer curRenderer = filters[i].GetComponent<Renderer>();
-            MeshCombineUtility.MeshInstance instance = new MeshCombineUtility.MeshInstance();
+			QT_MeshCombineUtility.MeshInstance instance = new QT_MeshCombineUtility.MeshInstance();
             instance.mesh = filter.sharedMesh;
             if (curRenderer != null && curRenderer.enabled && instance.mesh != null)
             {
@@ -306,7 +311,7 @@ public class QT_CombineMeshes : EditorWindow
         foreach (DictionaryEntry de in materialToMesh)
         {
             ArrayList elements = (ArrayList)de.Value;
-            MeshCombineUtility.MeshInstance[] instances = (MeshCombineUtility.MeshInstance[])elements.ToArray(typeof(MeshCombineUtility.MeshInstance));
+			QT_MeshCombineUtility.MeshInstance[] instances = (QT_MeshCombineUtility.MeshInstance[])elements.ToArray(typeof(QT_MeshCombineUtility.MeshInstance));
 
             GameObject go = new GameObject("Combined Mesh");
             if (keepLayer)
@@ -320,9 +325,9 @@ public class QT_CombineMeshes : EditorWindow
             go.AddComponent<MeshRenderer>();
             go.GetComponent<Renderer>().material = (Material)de.Key;
             MeshFilter filter = (MeshFilter)go.GetComponent(typeof(MeshFilter));
-            filter.sharedMesh = MeshCombineUtility.Combine(instances, false);
-            filter.GetComponent<Renderer>().receiveShadows = receiveShadows;
-            filter.GetComponent<Renderer>().castShadows = castShadows;
+			filter.sharedMesh = QT_MeshCombineUtility.Combine(instances, false);
+          //  filter.GetComponent<Renderer>().receiveShadows = receiveShadows;
+           // filter.GetComponent<Renderer>().castShadows = castShadows;
             go.isStatic = isStatic;
             if (isLightmapped)
                 Unwrapping.GenerateSecondaryUVSet(filter.sharedMesh);

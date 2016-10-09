@@ -18,7 +18,7 @@ public class QT_SurfaceNoise : MonoBehaviour
 
     public bool enableDebug = true;
     public bool enableOffset = false;
-    public bool enableLOD = true;
+    public bool enableLOD = false;
     public int LODDistance = 50;
 
     public int scaleMultiplier = 1; 
@@ -30,19 +30,22 @@ public class QT_SurfaceNoise : MonoBehaviour
     public bool XAxis = false;
     public bool YAxis = false;
 	public bool showDebugSphere = false;
-  
+
+    public Camera TargetCamera;
 
     Mesh[] meshes;
     List<Vector3[]> allBaseVertices; //a list of vector3 arrays. each element is the base vertex set of each mesh. Used for Polyworld Terrains and unique meshes
     List<Color[]> allBaseVertexAlphas; //all the colors of the meshes, but we'll only use alpha. ***Should be optimized later.
     float[] randomOffsets; //holds the random offsets for each mesh if Multimesh + random offset is used.
 
-    //go through each mesh and add all vertices to the temp vertex array
+	bool isStatic=false;
+    
+	//go through each mesh and add all vertices to the temp vertex array
     void Start()
     {  
+
         //get the meshes in the children
         MeshFilter[] mfs = this.gameObject.GetComponentsInChildren<MeshFilter>(false);
-
         meshes = new Mesh[mfs.Length];
         for (int x = 0; x < meshes.Length; x++)
             meshes[x] = mfs[x].mesh;
@@ -73,26 +76,39 @@ public class QT_SurfaceNoise : MonoBehaviour
             newVerts = new Vector3[baseHeight.Length];
         }
 
-		if(!Camera.main)		
-			Debug.LogWarning("No MainCamera found. SurfaceNoise LOD will not run on GameObject: "+this.gameObject.name);
-
+		if(TargetCamera==null)		
+			Debug.LogWarning("No Camera Chosen. SurfaceNoise LOD will not run on GameObject: "+this.gameObject.name);
+		for (int x = 0; x < mfs.Length; x++)
+		{
+			if(mfs[x].gameObject.isStatic)
+			{
+				isStatic=true;
+				break;
+			}
+		}
     }
 
     void OnRenderObject()//FixedUpdate()
 	{
-		if(Camera.main)
-		{
-            if (enableLOD)
-            {
-                //be nice to have a lerp to enabled/disabled instead of a pop.
-                if (Vector3.Distance(this.transform.position, Camera.main.transform.position) < LODDistance)
-                    RunWave();
-            }
-            else
-                RunWave();
-		}
-       // else 
-          //  RunWave();
+		if(isStatic==false)
+		    {
+                if (TargetCamera != null)
+		        {
+                    if (enableLOD)
+                    {
+                        //be nice to have a lerp to enabled/disabled instead of a pop.
+                        if (Vector3.Distance(this.transform.position, TargetCamera.transform.position) < LODDistance)
+                            RunWave();
+                    }
+                    else
+                        RunWave();
+		        }
+		    else		
+			    Debug.LogError("No camera is found for SurfaceNoise.");		
+		    }
+		else		
+			Debug.LogError("One or more meshes in "+this.gameObject.name+"'s hierarchy is tagged static. SurfaceNoise requires all objects to be not tagged static.");
+		
     }
 
     private void RunWave()
@@ -101,12 +117,13 @@ public class QT_SurfaceNoise : MonoBehaviour
         float T = Time.time;
         float newSpeedScale = speedMultiplier * baseWaveSpeed;
         float newStrengthScale = strengthMultiplier * baseNoiseStrength;
-
+       
+        
         if (enableMultiMesh)
         {
-
+            int ABV = allBaseVertices.Count;
             //for every mesh..
-            for (int x = 0; x < allBaseVertices.Count; x++)
+            for (int x = 0; x < ABV; x++)
             {
                 if (enableOffset)//takes each mesh and makes them wave uniquely to one another.
                     T += randomOffsets[x];

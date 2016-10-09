@@ -14,7 +14,7 @@ Shader "QuantumTheory/VertexColors/VertexLit" {
 			
 			ColorMaterial AmbientAndDiffuse
 			Lighting On
-			SeparateSpecular On
+			SeparateSpecular Off
 			
 			SetTexture [_MainTex] {
 				combine primary + primary DOUBLE

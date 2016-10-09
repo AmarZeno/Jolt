@@ -2,17 +2,17 @@
 // Code Animo™ http://codeanimo.com
 // License terms can be found at the bottom of this file.
 
-Shader "QuantumTheory/VertexColors/IBL/Emissive" {
+Shader "QuantumTheory/VertexColors/Deprecated/IBL/Emissive" {
 	Properties {
 		_DiffuseIBL("Diffuse IBL", CUBE) = "" {}
 		_IBLBrightness("IBL Brightness", Float) = 1
-		_Emission("Emission Scale", Float) = 1
+		_EMISSION("Emission Scale", Float) = 1
 	}
 		
 	CGINCLUDE
 
 	float _IBLBrightness;
-	float _Emission;
+	float _EMISSION;
 	
 	ENDCG
 	
@@ -36,7 +36,7 @@ Shader "QuantumTheory/VertexColors/IBL/Emissive" {
 		void surf (Input IN, inout SurfaceOutput o) {
 			o.Albedo = IN.color.rgb;
 			float3 IBL = ImageBasedLighting(IN.worldNormal, IN.color.rgb);
-			float3 emission = IN.color.rgb * _Emission * (1 - IN.color.a);
+			float3 emission = IN.color.rgb * _EMISSION * (1 - IN.color.a);
 			o.Emission = IBL + emission;
 		}
 		
