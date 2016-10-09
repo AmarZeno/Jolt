@@ -1,0 +1,304 @@
+fileFormatVersion: 2
+guid: 6aef6ba1923fa484a851465ce9e5b9b6
+timeCreated: 1475987028
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: arm left elbow
+    100002: arm left elbow ctr
+    100004: arm left finger 1a
+    100006: arm left finger 1b
+    100008: arm left finger 1c
+    100010: arm left finger 2a
+    100012: arm left finger 2b
+    100014: arm left finger 2c
+    100016: arm left finger 3a
+    100018: arm left finger 3b
+    100020: arm left finger 3c
+    100022: arm left finger 4a
+    100024: arm left finger 4b
+    100026: arm left finger 4c
+    100028: arm left finger 5a
+    100030: arm left finger 5b
+    100032: arm left finger 5c
+    100034: arm left shoulder 1
+    100036: arm left shoulder 2
+    100038: arm left shoulder 2 ctr
+    100040: arm left wrist
+    100042: arm right elbow
+    100044: arm right elbow ctr
+    100046: arm right finger 1a
+    100048: arm right finger 1b
+    100050: arm right finger 1c
+    100052: arm right finger 2a
+    100054: arm right finger 2b
+    100056: arm right finger 2c
+    100058: arm right finger 3a
+    100060: arm right finger 3b
+    100062: arm right finger 3c
+    100064: arm right finger 4a
+    100066: arm right finger 4b
+    100068: arm right finger 4c
+    100070: arm right finger 5a
+    100072: arm right finger 5b
+    100074: arm right finger 5c
+    100076: arm right shoulder 1
+    100078: arm right shoulder 2
+    100080: arm right shoulder 2 ctr
+    100082: arm right wrist
+    100084: //RootNode
+    100086: head cheek left 1
+    100088: head cheek left 2
+    100090: head cheek left 3
+    100092: head cheek left 4
+    100094: head cheek left 5
+    100096: head cheek left 6
+    100098: head cheek left 7
+    100100: head cheek right 1
+    100102: head cheek right 2
+    100104: head cheek right 3
+    100106: head cheek right 4
+    100108: head cheek right 5
+    100110: head cheek right 6
+    100112: head cheek right 7
+    100114: head chin
+    100116: head eyeball left
+    100118: head eyeball right
+    100120: head eyebrow left 1
+    100122: head eyebrow left 2
+    100124: head eyebrow left 3
+    100126: head eyebrow right 1
+    100128: head eyebrow right 2
+    100130: head eyebrow right 3
+    100132: head eyelid left lower
+    100134: head eyelid left upper
+    100136: head eyelid right lower
+    100138: head eyelid right upper
+    100140: head jaw
+    100142: head lip lower left 1
+    100144: head lip lower left 2
+    100146: head lip lower left 3
+    100148: head lip lower middle 1
+    100150: head lip lower middle 2
+    100152: head lip lower middle 3
+    100154: head lip lower right 1
+    100156: head lip lower right 2
+    100158: head lip lower right 3
+    100160: head lip upper left
+    100162: head lip upper middle 1
+    100164: head lip upper middle 2
+    100166: head lip upper right
+    100168: head mouth corner left 1
+    100170: head mouth corner left 2
+    100172: head mouth corner right 1
+    100174: head mouth corner right 2
+    100176: head neck lower
+    100178: head neck upper
+    100180: head nose centre
+    100182: head nostril left 1
+    100184: head nostril left 2
+    100186: head nostril left 3
+    100188: head nostril left 4
+    100190: head nostril right 1
+    100192: head nostril right 2
+    100194: head nostril right 3
+    100196: head nostril right 4
+    100198: head tongue 1
+    100200: leg left ankle
+    100202: leg left knee
+    100204: leg left thigh
+    100206: leg left toes
+    100208: leg right ankle
+    100210: leg right knee
+    100212: leg right thigh
+    100214: leg right toes
+    100216: Object001
+    100218: pelvis
+    100220: root ground
+    100222: root hips
+    100224: spine 1
+    100226: spine 2
+    100228: spine 3
+    400000: arm left elbow
+    400002: arm left elbow ctr
+    400004: arm left finger 1a
+    400006: arm left finger 1b
+    400008: arm left finger 1c
+    400010: arm left finger 2a
+    400012: arm left finger 2b
+    400014: arm left finger 2c
+    400016: arm left finger 3a
+    400018: arm left finger 3b
+    400020: arm left finger 3c
+    400022: arm left finger 4a
+    400024: arm left finger 4b
+    400026: arm left finger 4c
+    400028: arm left finger 5a
+    400030: arm left finger 5b
+    400032: arm left finger 5c
+    400034: arm left shoulder 1
+    400036: arm left shoulder 2
+    400038: arm left shoulder 2 ctr
+    400040: arm left wrist
+    400042: arm right elbow
+    400044: arm right elbow ctr
+    400046: arm right finger 1a
+    400048: arm right finger 1b
+    400050: arm right finger 1c
+    400052: arm right finger 2a
+    400054: arm right finger 2b
+    400056: arm right finger 2c
+    400058: arm right finger 3a
+    400060: arm right finger 3b
+    400062: arm right finger 3c
+    400064: arm right finger 4a
+    400066: arm right finger 4b
+    400068: arm right finger 4c
+    400070: arm right finger 5a
+    400072: arm right finger 5b
+    400074: arm right finger 5c
+    400076: arm right shoulder 1
+    400078: arm right shoulder 2
+    400080: arm right shoulder 2 ctr
+    400082: arm right wrist
+    400084: //RootNode
+    400086: head cheek left 1
+    400088: head cheek left 2
+    400090: head cheek left 3
+    400092: head cheek left 4
+    400094: head cheek left 5
+    400096: head cheek left 6
+    400098: head cheek left 7
+    400100: head cheek right 1
+    400102: head cheek right 2
+    400104: head cheek right 3
+    400106: head cheek right 4
+    400108: head cheek right 5
+    400110: head cheek right 6
+    400112: head cheek right 7
+    400114: head chin
+    400116: head eyeball left
+    400118: head eyeball right
+    400120: head eyebrow left 1
+    400122: head eyebrow left 2
+    400124: head eyebrow left 3
+    400126: head eyebrow right 1
+    400128: head eyebrow right 2
+    400130: head eyebrow right 3
+    400132: head eyelid left lower
+    400134: head eyelid left upper
+    400136: head eyelid right lower
+    400138: head eyelid right upper
+    400140: head jaw
+    400142: head lip lower left 1
+    400144: head lip lower left 2
+    400146: head lip lower left 3
+    400148: head lip lower middle 1
+    400150: head lip lower middle 2
+    400152: head lip lower middle 3
+    400154: head lip lower right 1
+    400156: head lip lower right 2
+    400158: head lip lower right 3
+    400160: head lip upper left
+    400162: head lip upper middle 1
+    400164: head lip upper middle 2
+    400166: head lip upper right
+    400168: head mouth corner left 1
+    400170: head mouth corner left 2
+    400172: head mouth corner right 1
+    400174: head mouth corner right 2
+    400176: head neck lower
+    400178: head neck upper
+    400180: head nose centre
+    400182: head nostril left 1
+    400184: head nostril left 2
+    400186: head nostril left 3
+    400188: head nostril left 4
+    400190: head nostril right 1
+    400192: head nostril right 2
+    400194: head nostril right 3
+    400196: head nostril right 4
+    400198: head tongue 1
+    400200: leg left ankle
+    400202: leg left knee
+    400204: leg left thigh
+    400206: leg left toes
+    400208: leg right ankle
+    400210: leg right knee
+    400212: leg right thigh
+    400214: leg right toes
+    400216: Object001
+    400218: pelvis
+    400220: root ground
+    400222: root hips
+    400224: spine 1
+    400226: spine 2
+    400228: spine 3
+    4300000: Object001
+    9500000: //RootNode
+    13700000: Object001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
