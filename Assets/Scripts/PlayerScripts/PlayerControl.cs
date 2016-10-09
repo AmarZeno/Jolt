@@ -44,7 +44,7 @@ public class PlayerControl : MonoBehaviour
 	private bool isMoving;
 
 	// fly
-	private bool fly = false;
+	private bool fly = true;
 	private float distToGround;
 	private float sprintFactor;
 
@@ -72,8 +72,8 @@ public class PlayerControl : MonoBehaviour
 	void Update()
 	{
 		// fly
-		if(Input.GetButtonDown ("Fly"))
-			fly = !fly;
+		//if(Input.GetButtonDown ("Fly"))
+			//fly = !fly;
 		aim = Input.GetButton("Aim");
 		h = Input.GetAxis("Horizontal");
 		//v = Input.GetAxis("Vertical");
