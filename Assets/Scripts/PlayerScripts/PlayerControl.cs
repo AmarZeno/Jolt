@@ -39,6 +39,7 @@ public class PlayerControl : MonoBehaviour
 
 	private bool run;
 	private bool sprint;
+    private bool forwardFly;
 
 	private bool isMoving;
 
@@ -75,14 +76,21 @@ public class PlayerControl : MonoBehaviour
 			fly = !fly;
 		aim = Input.GetButton("Aim");
 		h = Input.GetAxis("Horizontal");
-		v = Input.GetAxis("Vertical");
-		run = Input.GetButton ("Run");
+		//v = Input.GetAxis("Vertical");
+        // Hard coding v value to be 1 for constant forward motion
+        v = 1;
+        run = Input.GetButton ("Run");
 		sprint = Input.GetButton ("Sprint");
+        forwardFly = Input.GetButton("ForwardFly");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
+
+        
+
 	}
 
 	void FixedUpdate()
 	{
+        v = 1;
 		anim.SetBool (aimBool, IsAiming());
 		anim.SetFloat(hFloat, h);
 		anim.SetFloat(vFloat, v);
@@ -106,7 +114,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		Vector3 direction = Rotating(horizontal, vertical);
 		GetComponent<Rigidbody>().AddForce(direction * flySpeed * 100 * (sprint?sprintFactor:1));
-	}
+    }
 
 	void JumpManagement()
 	{
@@ -161,6 +169,7 @@ public class PlayerControl : MonoBehaviour
 		Vector3 forward = cameraTransform.TransformDirection(Vector3.forward);
 		if (!fly)
 			forward.y = 0.0f;
+
 		forward = forward.normalized;
 
 		Vector3 right = new Vector3(forward.z, 0, -forward.x);
@@ -205,7 +214,6 @@ public class PlayerControl : MonoBehaviour
 		Vector3 repositioning = lastDirection;
 		if(repositioning != Vector3.zero)
 		{
-			repositioning.y = 0;
 			Quaternion targetRotation = Quaternion.LookRotation (repositioning, Vector3.up);
 			Quaternion newRotation = Quaternion.Slerp(GetComponent<Rigidbody>().rotation, targetRotation, turnSmoothing * Time.deltaTime);
 			GetComponent<Rigidbody>().MoveRotation (newRotation);

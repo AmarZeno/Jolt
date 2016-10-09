@@ -42,7 +42,8 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 
 	void Awake()
 	{
-		cam = transform;
+
+        cam = transform;
 		playerControl = player.GetComponent<PlayerControl> ();
 
 		relCameraPos = transform.position - player.position;
@@ -52,6 +53,8 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 		smoothCamOffset = camOffset;
 
 		defaultFOV = cam.GetComponent<Camera>().fieldOfView;
+
+        angleH = 90;
 	}
 
 	void LateUpdate()
@@ -72,8 +75,11 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 
 		Quaternion aimRotation = Quaternion.Euler(-angleV, angleH, 0);
 		Quaternion camYRotation = Quaternion.Euler(0, angleH, 0);
-		cam.rotation = aimRotation;
+        Debug.Log(aimRotation);
+        cam.rotation = aimRotation;
 
+      //  cam.rotation = new Quaternion(aimRotation.x, 0.7f, aimRotation.z, aimRotation.w);
+      //  Debug.Log("Camera rotation" + cam.rotation);
 		if(playerControl.IsAiming())
 		{
 			targetPivotOffset = aimPivotOffset;
