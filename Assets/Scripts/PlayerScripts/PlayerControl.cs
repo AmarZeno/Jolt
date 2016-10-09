@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Leap;
+using System.Collections.Generic;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -48,9 +50,14 @@ public class PlayerControl : MonoBehaviour
 	private float distToGround;
 	private float sprintFactor;
 
-	void Awake()
+    Controller leapController;
+    Quaternion leapRotation;
+    Vector leapDirection;
+
+    void Awake()
 	{
-		anim = GetComponent<Animator> ();
+        leapController = new Controller();
+        anim = GetComponent<Animator> ();
 		cameraTransform = Camera.main.transform;
 
 		speedFloat = Animator.StringToHash("Speed");
@@ -84,11 +91,30 @@ public class PlayerControl : MonoBehaviour
         forwardFly = Input.GetButton("ForwardFly");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
 
-        
 
-	}
+        // Leap Motion
+        Hand mainHand; // The front most hand captured by the Leap Motion Controller
 
-	void FixedUpdate()
+        // Check if the Leap Motion Controller is ready
+        if (!IsReady || Hands == null)
+        {
+            
+            return;
+        }
+
+        mainHand = Hands[0];
+
+        leapDirection = mainHand.Direction;
+        Debug.Log(mainHand.Direction);
+
+        leapRotation = Quaternion.Euler(mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll);
+
+        Debug.Log(leapRotation);
+        // For relative orientation
+      //  leapRotation *= Quaternion.Euler( mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll );
+    }
+
+    void FixedUpdate()
 	{
         v = 1;
 		anim.SetBool (aimBool, IsAiming());
@@ -99,7 +125,17 @@ public class PlayerControl : MonoBehaviour
 		anim.SetBool (flyBool, fly);
 		GetComponent<Rigidbody>().useGravity = !fly;
 		anim.SetBool (groundedBool, IsGrounded ());
-		if(fly)
+
+        if (IsReady && Hands != null)
+        {
+           // Debug.Log(leapRotation);
+           // h = 1;
+            h = Mathf.Clamp(leapDirection.x, -1, 1);
+        }
+
+
+
+            if (fly)
 			FlyManagement(h,v);
 
 		else
@@ -234,4 +270,37 @@ public class PlayerControl : MonoBehaviour
 	{
 		return sprint && !aim && (isMoving);
 	}
+
+
+    // Leap Motion
+    /// <summary>
+    /// The current frame captured by the Leap Motion.
+    /// </summary>
+    Frame CurrentFrame
+    {
+        get { return (IsReady) ? leapController.Frame() : null; }
+    }
+
+    /// <summary>
+    /// Gets the hands data captured from the Leap Motion.
+    /// </summary>
+    /// <value>
+    /// The hands data captured from the Leap Motion.
+    /// </value>
+    List<Hand> Hands
+    {
+        get { return (CurrentFrame != null && CurrentFrame.Hands.Count > 0) ? CurrentFrame.Hands : null; }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether the Leap Motion is ready.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance is ready; otherwise, <c>false</c>.
+    /// </value>
+    bool IsReady
+    {
+        get { return (leapController != null && leapController.Devices.Count > 0 && leapController.IsConnected); }
+    }
+
 }
