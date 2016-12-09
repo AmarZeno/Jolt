@@ -1,6 +1,11 @@
-﻿using UnityEngine;
+﻿#define IS_DEVELOPMENT
+
+using UnityEngine;
 using System.Collections;
+#if IS_DEVELOPMENT
+#else
 using Leap;
+#endif
 using System.Collections.Generic;
 
 public class PlayerControl : MonoBehaviour
@@ -49,7 +54,8 @@ public class PlayerControl : MonoBehaviour
 	private bool fly = true;
 	private float distToGround;
 	private float sprintFactor;
-
+    #if IS_DEVELOPMENT
+#else
     Controller leapController;
     Quaternion leapRotation;
     Vector leapDirection;
@@ -61,10 +67,14 @@ public class PlayerControl : MonoBehaviour
             return leapDirection;
         }
     }
+#endif
 
     void Awake()
 	{
+        #if IS_DEVELOPMENT
+#else
         leapController = new Controller();
+#endif
         anim = GetComponent<Animator> ();
 		cameraTransform = Camera.main.transform;
 
@@ -99,7 +109,8 @@ public class PlayerControl : MonoBehaviour
         forwardFly = Input.GetButton("ForwardFly");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
 
-        
+        #if IS_DEVELOPMENT
+#else
         // Leap Motion
         Hand mainHand; // The front most hand captured by the Leap Motion Controller
 
@@ -120,6 +131,7 @@ public class PlayerControl : MonoBehaviour
         // Debug.Log(leapRotation);
         // For relative orientation
         leapRotation *= Quaternion.Euler( mainHand.Direction.Pitch, mainHand.Direction.Yaw, mainHand.PalmNormal.Roll );
+#endif
     }
 
     void FixedUpdate()
@@ -133,14 +145,16 @@ public class PlayerControl : MonoBehaviour
 		anim.SetBool (flyBool, fly);
 		GetComponent<Rigidbody>().useGravity = !fly;
 		anim.SetBool (groundedBool, IsGrounded ());
-        
+
+        #if IS_DEVELOPMENT
+#else
         if (IsReady && Hands != null)
         {
             Debug.Log("here"+leapDirection);
            // h = 1;
             h = Mathf.Clamp(leapDirection.x, -1, 1);
         }
-
+#endif
 
 
             if (fly)
@@ -279,7 +293,8 @@ public class PlayerControl : MonoBehaviour
 		return sprint && !aim && (isMoving);
 	}
 
-    
+    #if IS_DEVELOPMENT
+#else
     // Leap Motion
     /// <summary>
     /// The current frame captured by the Leap Motion.
@@ -310,5 +325,6 @@ public class PlayerControl : MonoBehaviour
     {
         get { return (leapController != null && leapController.Devices.Count > 0 && leapController.IsConnected); }
     }
+#endif
     
 }

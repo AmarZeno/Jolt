@@ -1,7 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
-using Leap;
+﻿#define IS_DEVELOPMENT2
 
+using UnityEngine;
+using System.Collections;
+#if IS_DEVELOPMENT2
+#else
+using Leap;
+#endif
 public class ThirdPersonOrbitCam : MonoBehaviour 
 {
 	public Transform player;
@@ -41,7 +45,10 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 	private float defaultFOV;
 	private float targetFOV;
 
+    #if IS_DEVELOPMENT2
+#else
     Vector leapDirection;
+#endif
 
 	void Awake()
 	{
@@ -63,14 +70,22 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 
 	void LateUpdate()
 	{
+        #if IS_DEVELOPMENT2
+#else
         leapDirection = playerControl.LeapDirection2;
+
+#endif
 
 
         angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.deltaTime;
-      //  angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+        //  angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
 
-
+#if IS_DEVELOPMENT2
+        angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+#else
         angleV += Mathf.Clamp(Input.GetAxis("Mouse Y") + (leapDirection.y/10), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+#endif
+
 
         // fly
         if (playerControl.IsFlying())
